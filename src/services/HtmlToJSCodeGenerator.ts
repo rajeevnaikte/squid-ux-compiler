@@ -33,10 +33,11 @@ export class HtmlToJSCodeGenerator {
     const style: string[] = [];
     const html: string[] = [];
     const script: string[] = [];
-    if (this.ux.style) style.push(...this.htmlToJSCode(`<style>${this.ux.style}</style>`));
+    if (this.ux.style) style.push(...this.htmlToJSCode(`<style>${this.addIdToStyle(this.ux.style)}</style>`));
 
     html.push('this.onDataUpdate = {};');
     for (const variable of this.ux.variables ?? []) {
+      if (variable === 'id') continue;
       html.push(`this.onDataUpdate['${variable}'] = [];`);
     }
     html.push(...this.htmlToJSCode(this.ux.html));
@@ -44,6 +45,33 @@ export class HtmlToJSCodeGenerator {
     if (this.ux.script) script.push(this.ux.script);
 
     return { name, style, html, script };
+  }
+
+  private stylePattern = new TextsBetween('{', '}');
+
+  /**
+   * Add the id variable as class to every style.
+   * @param style
+   */
+  private addIdToStyle (style: string): string {
+    return this.stylePattern.split(style)
+      .map(part => {
+        if (typeof part === 'string') {
+          return part.split(',')
+            .map(sr => sr.trim())
+            .filter(sr => sr.length > 0)
+            .map(styleRef => styleRef.split(' ')
+              .map(sr => sr.trim())
+              .filter(sr => sr.length > 0)
+              .map(sr => `${sr}.[id]`)
+              .join(' '))
+            .join(', ');
+        }
+        else {
+          return part.textBetween;
+        }
+      })
+      .join('');
   }
 
   /**
@@ -54,6 +82,11 @@ export class HtmlToJSCodeGenerator {
     return `'${text.replace(/'/g, '\\\'').replace(/\n/g, ' ')}'`;
   }
 
+  /**
+   * Code to add given text in a text-node. The code will be generated such that to
+   * resolve any variables to be taken dynamically.
+   * @param text
+   */
   private getTextCreationCode (text: string) {
     if (this.variablePattern) {
       text = this.variablePattern.split(text)
@@ -113,7 +146,7 @@ export class HtmlToJSCodeGenerator {
       const textCode = this.getTextCreationCode(text);
       codeLines.push(`const ${elVar} = document.createTextNode(${textCode});`);
       for (const variable of this.variablePattern?.get(text) ?? []) {
-        if (!variable.startsWith('i18n')) {
+        if (variable !== 'id' && !variable.startsWith('i18n')) {
           codeLines.push(`this.onDataUpdate['${variable}'].push(() => ${elVar}.nodeValue = ${textCode});`);
         }
       }
@@ -126,7 +159,7 @@ export class HtmlToJSCodeGenerator {
         const textCode = this.getTextCreationCode(attrValue);
         codeLines.push(`${elVar}.setAttribute('${attr}', ${textCode});`);
         for (const variable of this.variablePattern?.get(attrValue) ?? []) {
-          if (!variable.startsWith('i18n')) {
+          if (variable !== 'id' && !variable.startsWith('i18n')) {
             codeLines.push(`this.onDataUpdate['${variable}'].push(() => ${elVar}.setAttribute('${attr}', ${textCode}));`);
           }
         }
