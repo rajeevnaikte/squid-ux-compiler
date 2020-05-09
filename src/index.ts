@@ -1,1 +1,2 @@
-export default () => 2 + 2
+export * from './services/Compiler';
+export { setConfigs } from './configurations/configuration';
