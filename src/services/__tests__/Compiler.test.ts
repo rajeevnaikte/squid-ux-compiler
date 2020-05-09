@@ -98,7 +98,7 @@ describe('Compiler', () => {
       // @ts-ignore
       compiler.compile(uxFile);
 
-      const outPath = `${__dirname}/.build/ux/form-field-valid.uxjs`;
+      const outPath = `${__dirname}/.uxjs/ux/form-field-valid.uxjs`;
       expect(pathExists(outPath)).toEqual(true);
 
       const actual = readFile(outPath);

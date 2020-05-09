@@ -119,6 +119,7 @@ export class HtmlToJSCodeGenerator {
       }
     }
     else {
+      cheerio(el).addClass('[id]');
       codeLines.push(`const ${elVar} = document.createElement('${el.name}');`);
       for (const attr in el.attribs) {
         const attrValue = el.attribs[attr];
