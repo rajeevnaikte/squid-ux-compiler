@@ -4,6 +4,16 @@ namespace: form.field;
   .form-group {
     margin: 10px;
   }
+  #ux123 {
+    padding: 10px;
+  }
+  #ux123 .some-class {
+    color: red;
+  }
+  .some-class.some-class2,.some-class.some-class3,
+  .some-class.some-class4 {
+    border: 1px solid red;
+  }
 </style>
 
 <template>

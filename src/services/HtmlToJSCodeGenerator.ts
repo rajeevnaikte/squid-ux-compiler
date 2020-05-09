@@ -68,7 +68,7 @@ export class HtmlToJSCodeGenerator {
             .join(', ');
         }
         else {
-          return part.textBetween;
+          return part.text;
         }
       })
       .join('');
