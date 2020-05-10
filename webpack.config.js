@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/ui/ui.ts',
+  entry: './.uxui/uxui.js',
   module: {
     rules: [
       {
@@ -15,10 +15,7 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
-    filename: 'uxui.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-  node: {
-    fs: 'empty'
+    filename: 'uxui.bundle.js',
+    path: path.resolve('.uxui'),
   }
 };

@@ -70,7 +70,7 @@ export class Compiler {
         <${customElementName}></${customElementName}>
       </body>`, { runScripts: 'dangerously' });
 
-    const uxComponentClassFilePath = `${Config.ROOT_DIR}/.uxjs/ux/${customElementName}.${Config.UXJS_FILE_EXTN}`;
+    const uxComponentClassFilePath = `${Config.ROOT_DIR}/.uxui/ux/${customElementName}.${Config.UXJS_FILE_EXTN}`;
     writeFile(uxComponentClassFilePath, beautify(componentCode, { indent_size: 2 })); // eslint-disable-line @typescript-eslint/camelcase
 
     return uxComponentClassFilePath;

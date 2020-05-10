@@ -108,3 +108,4 @@ lib
 .idea
 **/__tests__/**/actual
 .uxjs
+.uxui
