@@ -3,5 +3,7 @@
   "UX_FILE_EXTN": "ux",
   "UXJS_FILE_EXTN": "uxjs",
   "UX_FILES_DIR": "./examples",
-  "UXJS_NODE_MODULES": []
+  "UXJS_NODE_MODULES": [],
+  "UXUI_DIR": ".uxui",
+  "UXUI_FILENAME": "uxui.js"
 }

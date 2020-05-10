@@ -1,4 +1,4 @@
-import { basename } from 'path';
+import { basename, resolve as pathResolve } from 'path';
 import { BaseError, TextsBetween } from 'squid-utils';
 import { MultipleScript, MultipleStyles, MultipleTemplate, NamespaceMissing, TemplateMissing } from './errors';
 import * as cheerio from 'cheerio';
@@ -73,7 +73,7 @@ export class Compiler {
     const uxComponentClassFilePath = `${Config.ROOT_DIR}/.uxui/ux/${customElementName}.${Config.UXJS_FILE_EXTN}`;
     writeFile(uxComponentClassFilePath, beautify(componentCode, { indent_size: 2 })); // eslint-disable-line @typescript-eslint/camelcase
 
-    return uxComponentClassFilePath;
+    return pathResolve(uxComponentClassFilePath);
   }
 
   /**
