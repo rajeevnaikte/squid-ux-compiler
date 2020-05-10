@@ -46,7 +46,7 @@ export class Compiler {
       .withVariablePattern(this.variablePattern)
       .generate();
 
-    const template = readFile(`${__dirname}/component.js.template`);
+    const template = readFile(`${__dirname}/uxjs.template`);
     const customElementName = getCustomElementName(uxCode);
 
     const componentCode = this.variablePattern.replace(template, key => {
