@@ -1,8 +1,5 @@
-if (window.ux['form-field-valid']) {
-  throw 'UX form-field-valid already exists.';
-}
-window.ux['form-field-valid'] = {
-  loaded: false,
+module.exports = {
+  name: 'form-field-valid',
   style() {
     const el0 = document.createTextNode('.form-group.' + this.getAttribute('id') + '{     margin: 10px;   }#ux123.' + this.getAttribute('id') + '{     padding: 10px;   }#ux123.' + this.getAttribute('id') + ' .some-class.' + this.getAttribute('id') + '{     color: red;   }.some-class.some-class2.' + this.getAttribute('id') + ', .some-class.some-class3.' + this.getAttribute('id') + ', .some-class.some-class4.' + this.getAttribute('id') + '{     border: 1px solid red;   }');
     const el1 = document.createElement('style');

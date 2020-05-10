@@ -103,6 +103,10 @@ describe('Compiler', () => {
 
       const actual = readFile(outPath);
       expect(actual).toEqual(readFile(`${__dirname}/expected/form-field-valid.js`));
+
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const uxjs = require(outPath);
+      expect(uxjs.name).toEqual('form-field-valid');
     });
   });
 });

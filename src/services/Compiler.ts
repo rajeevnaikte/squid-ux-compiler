@@ -64,6 +64,7 @@ export class Compiler {
         <script>
           const i18n = { translate: () => '' };
           window.ux = {};
+          const module = {};
         </script>
         <script>${componentCode}</script>
         <${customElementName}></${customElementName}>

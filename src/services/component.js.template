@@ -1,8 +1,5 @@
-if (window.ux\['[name]'\]) {
-    throw 'UX [name] already exists.';
-}
-window.ux\['[name]'\] = {
- loaded: false,
+module.exports = {
+ name: '[name]',
  style () {
     [style]
  },
