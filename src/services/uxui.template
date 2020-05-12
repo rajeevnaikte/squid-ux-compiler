@@ -1,5 +1,0 @@
-import { UX } from 'squid-ui';
-
-for (const uxjs of [file paths]) {
-  UX.add(require(uxjs));
-}

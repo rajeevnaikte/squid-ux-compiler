@@ -1,2 +1,5 @@
-export * from './services/Compiler';
-export { setConfigs } from './configurations/configuration';
+#!/usr/bin/env node
+
+import { Builder } from './services/Builder';
+
+new Builder().buildUXUI();

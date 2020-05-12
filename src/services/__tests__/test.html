@@ -26,12 +26,15 @@
       shadow.innerHTML += '<div class="class1">hello2<form-field-valid></form-field-valid></div>';
       shadow.appendChild(document.createTextNode('heollooooo'));
       this.onclick = () => alert('');
+      console.log('custom el');
     }
   }
   customElements.define('com.rajeevn.popup-info', Component);
   const root = document.getElementById('root');
-  root.appendChild(document.createTextNode('alert(\'hello\')'));
-  root.innerHTML += '<div>Hello<span><com.rajeevn.popup-info class="el-1"></com.rajeevn.popup-info></span></div>';
+  // root.appendChild(document.createTextNode('alert(\'hello\')'));
+  document.createElement('com.rajeevn.popup-info');
+  root.append('<div>Hello<span><com.rajeevn.popup-info class="el-1"></com.rajeevn.popup-info></span></div>');
+  //root.innerHTML += '<div>Hello<span><com.rajeevn.popup-info class="el-1"></com.rajeevn.popup-info></span></div>';
 
 </script>
 </body>

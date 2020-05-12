@@ -9,7 +9,7 @@ import { TextsBetween } from 'squid-utils';
 export class Builder {
   private readonly variablePattern = new TextsBetween('[', ']');
 
-  buildUXJS () {
+  buildUXUI () {
     const compiler = new Compiler();
     const uxjsFilePaths: string[] = [];
 
@@ -18,7 +18,7 @@ export class Builder {
 
     const uxui = [
       'import { UX } from \'squid-ui\';',
-      ...uxjsFilePaths.map(uxjsPath => `UX.add(require('${uxjsPath}'));`)
+      ...uxjsFilePaths.map(uxjsPath => `UX.add(require('${uxjsPath.replace(/'/g, '\\\'')}'));`)
     ];
 
     writeFile(`${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXUI_FILENAME}`, uxui.join('\n'));

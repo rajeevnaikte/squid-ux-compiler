@@ -10,7 +10,7 @@ describe('Builder', () => {
   });
 
   test('buildUXJS', () => {
-    new Builder().buildUXJS();
+    new Builder().buildUXUI();
 
     const uxuiJsPath = `${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXUI_FILENAME}`;
     expect(pathExists(uxuiJsPath)).toEqual(true);
