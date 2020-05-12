@@ -1,9 +1,11 @@
 {
+  "ENV": "dev",
   "ROOT_DIR": ".",
   "UX_FILE_EXTN": "ux",
   "UXJS_FILE_EXTN": "uxjs",
   "UX_FILES_DIR": "./examples",
   "UXJS_NODE_MODULES": [],
   "UXUI_DIR": ".uxui",
-  "UXUI_FILENAME": "uxui.js"
+  "UXUI_FILENAME": "uxui.js",
+  "APP_ENTRY": "./src/index.ts"
 }
