@@ -1,7 +1,6 @@
 import { Builder } from '../Builder';
 import { pathExists, readFile } from 'squid-node-utils';
-import { setConfigs } from '../..';
-import { Config } from '../../configurations/configuration';
+import { Config, setConfigs } from '../../configurations/configuration';
 
 describe('Builder', () => {
   setConfigs({
@@ -9,8 +8,10 @@ describe('Builder', () => {
     UX_FILES_DIR: `${__dirname}/data`
   });
 
-  test('buildUXJS', () => {
-    new Builder().buildUXUI();
+  test('buildUXJS', async () => {
+    new Builder().buildUXUI(Config.APP_ENTRY);
+
+    await new Promise(resolve => setTimeout(() => resolve(), 1000));
 
     const uxuiJsPath = `${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXUI_FILENAME}`;
     expect(pathExists(uxuiJsPath)).toEqual(true);

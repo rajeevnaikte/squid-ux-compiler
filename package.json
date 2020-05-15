@@ -32,7 +32,7 @@
     "js-beautify": "^1.11.0",
     "jsdom": "^16.2.2",
     "squid-node-utils": "^1.0.1",
-    "squid-ui": "^1.0.0",
+    "squid-ui": "^1.0.1",
     "squid-utils": "^2.1.4"
   },
   "devDependencies": {

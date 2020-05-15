@@ -7,6 +7,7 @@ import { writeFile } from 'squid-node-utils';
 import { TextsBetween } from 'squid-utils';
 import { resolve as pathResolve } from 'path';
 import webpack = require('webpack');
+import { Stats } from 'webpack';
 
 export class Builder {
   private readonly variablePattern = new TextsBetween('[', ']');
@@ -31,8 +32,10 @@ export class Builder {
   private runWebpack (appEntryPath: string) {
     const webpackCompiler = webpack({
       entry: {
-        ux: './.uxui/uxui.js',
-        ui: appEntryPath
+        uxui: [
+          `${Config.ROOT_DIR}/.uxui/uxui.js`,
+          appEntryPath
+        ]
       },
       module: {
         rules: [
@@ -43,25 +46,23 @@ export class Builder {
           }
         ]
       },
-      resolve: {
-        extensions: ['.tsx', '.ts', '.js']
-      },
       output: {
-        filename: 'uxui.bundle.js',
-        path: pathResolve('.uxui')
+        filename: '[name].bundle.js',
+        path: pathResolve(`${Config.ROOT_DIR}/.uxui`)
       }
     });
 
-    if (Config.ENV === 'dev') {
-      webpackCompiler.watch({},
-        (e) => {
-          if (e) console.error(e);
-        });
+    const checkWebpackErrors = (e: Error, stats: Stats) => {
+      if (e || stats.hasErrors()) {
+        throw stats.toString('minimal');
+      }
+    };
+
+    if (JSON.parse(Config.WATCH as any)) {
+      webpackCompiler.watch({}, checkWebpackErrors);
     }
     else {
-      webpackCompiler.run((e) => {
-        if (e) console.error(e);
-      });
+      webpackCompiler.run(checkWebpackErrors);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { ComponentDef } from '../src/ui/types';
+import { ComponentDef } from 'squid-ui';
 
 export const app: ComponentDef = {
   ux: 'panel.my-panel',

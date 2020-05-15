@@ -1,5 +1,6 @@
 {
   "ENV": "dev",
+  "WATCH": false,
   "ROOT_DIR": ".",
   "UX_FILE_EXTN": "ux",
   "UXJS_FILE_EXTN": "uxjs",
