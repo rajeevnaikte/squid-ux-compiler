@@ -30,7 +30,7 @@ export class Compiler {
         try {
           return this.compile(uxFilePath);
         } catch (e) {
-          console.error(e);
+          console.error(e.map((err: BaseError) => err.message));
         }
       })
       .filter(uxjs => uxjs) as string[];
@@ -46,7 +46,7 @@ export class Compiler {
       .withVariablePattern(this.variablePattern)
       .generate();
 
-    const template = readFile(`${__dirname}/uxjs.template`);
+    const template = this.getUXJSTemplate();
     const customElementName = getCustomElementName(uxCode);
 
     const componentCode = this.variablePattern.replace(template, key => {
@@ -78,7 +78,6 @@ export class Compiler {
 
   /**
    * Parse and extract component ux code parts.
-   * @param uxCode
    */
   private parse (uxFilePath: string): UXCode {
     const uxCode = readFile(uxFilePath);
@@ -139,5 +138,25 @@ export class Compiler {
       i18ns: allVariables.filter(variable => variable.startsWith('i18n:')),
       script
     };
+  }
+
+  /**
+   * Get template for uxjs code.
+   */
+  private getUXJSTemplate (): string {
+    return `
+      module.exports = {
+       name: '[name]',
+       style () {
+          [style]
+       },
+       html () {
+          [html]
+       },
+       script () {
+          [script]
+       }
+      };
+    `;
   }
 }
