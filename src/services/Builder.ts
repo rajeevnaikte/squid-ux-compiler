@@ -12,7 +12,7 @@ import { Stats } from 'webpack';
 export class Builder {
   private readonly variablePattern = new TextsBetween('[', ']');
 
-  buildUXUI (appEntryPath: string) {
+  buildUXUI () {
     const compiler = new Compiler();
     const uxjsFilePaths: string[] = [];
 
@@ -26,7 +26,7 @@ export class Builder {
 
     writeFile(`${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXUI_FILENAME}`, uxui.join('\n'));
 
-    this.runWebpack(appEntryPath);
+    this.runWebpack(Config.APP_ENTRY);
   }
 
   private runWebpack (appEntryPath: string) {

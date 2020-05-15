@@ -9,7 +9,7 @@ describe('Builder', () => {
   });
 
   test('buildUXJS', async () => {
-    new Builder().buildUXUI(Config.APP_ENTRY);
+    new Builder().buildUXUI();
 
     await new Promise(resolve => setTimeout(() => resolve(), 1000));
 
