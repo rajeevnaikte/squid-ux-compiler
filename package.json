@@ -1,7 +1,7 @@
 {
-  "name": "squid-ux-compiler",
+  "name": "squid-uxui",
   "version": "1.0.0",
-  "description": "Squid UX compiler to generate code for the UX",
+  "description": "Squid UXUI to generate code for the UX and webpack with UI code",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rajeevnaikte/squid-ux-compiler.git"
+    "url": "git+https://github.com/rajeevnaikte/squid-uxui.git"
   },
   "keywords": [
     "framework"
@@ -24,9 +24,9 @@
   "author": "Rajeev N",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rajeevnaikte/squid-ux-compiler/issues"
+    "url": "https://github.com/rajeevnaikte/squid-uxui/issues"
   },
-  "homepage": "https://github.com/rajeevnaikte/squid-ux-compiler#readme",
+  "homepage": "https://github.com/rajeevnaikte/squid-uxui#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "js-beautify": "^1.11.0",
