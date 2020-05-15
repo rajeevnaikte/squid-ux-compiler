@@ -1,7 +1,7 @@
 import { Compiler } from '../Compiler';
 import { MultipleStyles, MultipleTemplate, NamespaceMissing } from '../errors';
 import { pathExists, readFile } from 'squid-node-utils';
-import { setConfigs } from '../..';
+import { setConfigs } from '../../configurations/configuration';
 
 describe('Compiler', () => {
   describe('parse', () => {
@@ -33,6 +33,16 @@ describe('Compiler', () => {
         name: 'valid',
         style: `.form-group {
     margin: 10px;
+  }
+  #ux123 {
+    padding: 10px;
+  }
+  #ux123 .some-class {
+    color: red;
+  }
+  .some-class.some-class2,.some-class.some-class3,
+  .some-class.some-class4 {
+    border: 1px solid red;
   }`,
         html: `<div class="form-group">
     <label for="[exampleInputEmail1]">[i18n:Email address]</label>

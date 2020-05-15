@@ -20,5 +20,8 @@ module.exports = {
     'lcov',
     'clover',
     'text-summary'
+  ],
+  testMatch: [
+    '**/__tests__/**/*.test.ts'
   ]
 }

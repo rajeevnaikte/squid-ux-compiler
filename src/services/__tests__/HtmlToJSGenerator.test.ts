@@ -89,7 +89,8 @@ describe('HtmlToJSGenerator', () => {
         testObj().traverseHtmlAndGetJSCode(el, codeLines)
       ).toEqual('el0');
       expect(codeLines).toEqual([
-        'const el0 = document.createElement(\'style\');'
+        'const el0 = document.createElement(\'style\');',
+        'el0.setAttribute(\'class\', this.getAttribute(\'id\'));'
       ]);
     });
 
@@ -103,6 +104,7 @@ describe('HtmlToJSGenerator', () => {
       expect(codeLines).toEqual([
         'const el0 = document.createTextNode(\'.form-group { margin: 10px; }\');',
         'const el1 = document.createElement(\'style\');',
+        'el1.setAttribute(\'class\', this.getAttribute(\'id\'));',
         'el1.appendChild(el0);'
       ]);
     });
@@ -121,10 +123,12 @@ describe('HtmlToJSGenerator', () => {
         'const el1 = document.createTextNode(\'hello2\');',
         'const el2 = document.createElement(\'span\');',
         'el2.setAttribute(\'att2\', \'attv2\');',
+        'el2.setAttribute(\'class\', this.getAttribute(\'id\'));',
         'el2.appendChild(el1);',
         'const el3 = document.createTextNode(\'hello3\');',
         'const el4 = document.createElement(\'div\');',
         'el4.setAttribute(\'att1\', \'attv1\');',
+        'el4.setAttribute(\'class\', this.getAttribute(\'id\'));',
         'el4.appendChild(el0);',
         'el4.appendChild(el2);',
         'el4.appendChild(el3);'
@@ -147,11 +151,13 @@ describe('HtmlToJSGenerator', () => {
         'this.onDataUpdate[\'var3\'].push(() => el1.nodeValue = \'hel\' + this.getAttribute(\'var3\') + \'lo2\');',
         'const el2 = document.createElement(\'span\');',
         'el2.setAttribute(\'att2\', \'attv2\');',
+        'el2.setAttribute(\'class\', this.getAttribute(\'id\'));',
         'el2.appendChild(el1);',
         'const el3 = document.createTextNode(\'hello3\');',
         'const el4 = document.createElement(\'div\');',
         'el4.setAttribute(\'att1\', \'attv1 \' + this.getAttribute(\'var2\'));',
         'this.onDataUpdate[\'var2\'].push(() => el4.setAttribute(\'att1\', \'attv1 \' + this.getAttribute(\'var2\')));',
+        'el4.setAttribute(\'class\', this.getAttribute(\'id\'));',
         'el4.appendChild(el0);',
         'el4.appendChild(el2);',
         'el4.appendChild(el3);'
@@ -164,34 +170,45 @@ describe('HtmlToJSGenerator', () => {
       const codeLines = testObj({
         namespace: 'field',
         name: 'input',
-        style: '<style>div { margin: 10px; }</style>',
+        style: 'div { margin: 10px; }',
         html: '<div><input type="radio" name="name">[val1]<input type="radio" name="name">Option2 [i18n:data]</div>',
         variables: ['val1'],
         i18ns: []
       })
         .generate();
-      expect(codeLines).toEqual([
-        'this.onDataUpdate = {};',
-        'this.onDataUpdate[\'val1\'] = [];',
-        'const el0 = document.createTextNode(\'<style>div { margin: 10px; }\');',
-        'const el1 = document.createElement(\'style\');',
-        'el1.appendChild(el0);',
-        'const el2 = document.createElement(\'input\');',
-        'el2.setAttribute(\'type\', \'radio\');',
-        'el2.setAttribute(\'name\', \'name\');',
-        'const el3 = document.createTextNode(this.getAttribute(\'val1\'));',
-        'this.onDataUpdate[\'val1\'].push(() => el3.nodeValue = this.getAttribute(\'val1\'));',
-        'const el4 = document.createElement(\'input\');',
-        'el4.setAttribute(\'type\', \'radio\');',
-        'el4.setAttribute(\'name\', \'name\');',
-        "const el5 = document.createTextNode('Option2 ' + i18n.translate('i18n:data'));",
-        'const el6 = document.createElement(\'div\');',
-        'el6.appendChild(el2);',
-        'el6.appendChild(el3);',
-        'el6.appendChild(el4);',
-        'el6.appendChild(el5);',
-        'return [el1,el6];'
-      ]);
+      expect(codeLines).toEqual({
+        name: 'field-input',
+        style: [
+          'const el0 = document.createTextNode(\'div.\' + this.getAttribute(\'id\') + \'{ margin: 10px; }\');',
+          'const el1 = document.createElement(\'style\');',
+          'el1.setAttribute(\'class\', this.getAttribute(\'id\'));',
+          'el1.appendChild(el0);',
+          'return [el1];'
+        ],
+        html: [
+          'this.onDataUpdate = {};',
+          'this.onDataUpdate[\'val1\'] = [];',
+          'const el2 = document.createElement(\'input\');',
+          'el2.setAttribute(\'type\', \'radio\');',
+          'el2.setAttribute(\'name\', \'name\');',
+          'el2.setAttribute(\'class\', this.getAttribute(\'id\'));',
+          'const el3 = document.createTextNode(this.getAttribute(\'val1\'));',
+          'this.onDataUpdate[\'val1\'].push(() => el3.nodeValue = this.getAttribute(\'val1\'));',
+          'const el4 = document.createElement(\'input\');',
+          'el4.setAttribute(\'type\', \'radio\');',
+          'el4.setAttribute(\'name\', \'name\');',
+          'el4.setAttribute(\'class\', this.getAttribute(\'id\'));',
+          'const el5 = document.createTextNode(\'Option2 \' + i18n.translate(\'i18n:data\'));',
+          'const el6 = document.createElement(\'div\');',
+          'el6.setAttribute(\'class\', this.getAttribute(\'id\'));',
+          'el6.appendChild(el2);',
+          'el6.appendChild(el3);',
+          'el6.appendChild(el4);',
+          'el6.appendChild(el5);',
+          'return [el6];'
+        ],
+        script: []
+      });
     });
   });
 });
