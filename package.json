@@ -1,7 +1,7 @@
 {
   "name": "squid-uxui",
-  "version": "1.0.5",
-  "description": "Squid UXUI to generate code for the UX and webpack with UI code",
+  "version": "1.0.6",
+  "description": "Cli tool to generate code for the UX and webpack with UI code",
   "main": "dist/index.js",
   "bin": {
     "uxui": "dist/index.js"

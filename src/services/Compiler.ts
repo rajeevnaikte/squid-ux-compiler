@@ -40,7 +40,7 @@ export class Compiler {
    * Compile a single .ux file and create custom element.
    * @param uxFilePath
    */
-  private compile (uxFilePath: string): string {
+  compile (uxFilePath: string): string {
     const uxCode = this.parse(uxFilePath);
     const uxjsCode = new HtmlToJSCodeGenerator(uxCode)
       .withVariablePattern(this.variablePattern)
