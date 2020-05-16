@@ -15,6 +15,7 @@ describe('Builder', () => {
 
     const uxuiJsPath = `${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXUI_FILENAME}`;
     expect(pathExists(uxuiJsPath)).toEqual(true);
-    expect(readFile(uxuiJsPath)).toEqual(readFile(`${__dirname}/expected/uxui.js`));
+    expect(readFile(uxuiJsPath).replace(/\n/g, ''))
+      .toEqual(readFile(`${__dirname}/expected/uxui.js`).replace(/\n/g, ''));
   });
 });
