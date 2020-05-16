@@ -6,8 +6,8 @@ import { Compiler } from './Compiler';
 import { writeFile } from 'squid-node-utils';
 import { TextsBetween } from 'squid-utils';
 import { resolve as pathResolve } from 'path';
-import webpack = require('webpack');
 import { Stats } from 'webpack';
+import webpack = require('webpack');
 
 export class Builder {
   private readonly variablePattern = new TextsBetween('[', ']');
@@ -45,6 +45,9 @@ export class Builder {
             exclude: /node_modules/
           }
         ]
+      },
+      resolve: {
+        extensions: ['.tsx', '.ts', '.js']
       },
       output: {
         filename: '[name].bundle.js',
