@@ -8,5 +8,6 @@
   "UXJS_NODE_MODULES": [],
   "UXUI_DIR": ".uxui",
   "UXUI_FILENAME": "uxui.js",
-  "APP_ENTRY": "./examples/app.ts"
+  "APP_ENTRY": "./examples/app.ts",
+  "DEV_SERVER_PORT": 3000
 }

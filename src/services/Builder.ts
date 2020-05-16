@@ -3,10 +3,13 @@
  */
 import { Config } from '../configurations/configuration';
 import { Compiler } from './Compiler';
-import { deletePath, writeFile } from 'squid-node-utils';
-import { resolve as pathResolve } from 'path';
+import { writeFile } from 'squid-node-utils';
+import { dirname, resolve as pathResolve } from 'path';
 import { Stats } from 'webpack';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import * as WebpackDevServer from 'webpack-dev-server';
 import webpack = require('webpack');
+import HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /**
  * UXUI builder.
@@ -20,7 +23,11 @@ export class Builder {
    * UX files are searched in directory as set in env variable `UX_FILES_DIR`.
    * App javascript/typescript code start point will be as set in env variable `APP_ENTRY`.
    */
-  buildUXUI () {
+  build () {
+    this.runWebpack();
+  }
+
+  private buildUXUI () {
     const compiler = new Compiler();
 
     Config.UXJS_NODE_MODULES.forEach(dir => this.uxjsFilePaths.push(...compiler.compileUX(dir)));
@@ -33,17 +40,14 @@ export class Builder {
 
     const uxjsIndexFile = `${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXUI_FILENAME}`;
     writeFile(uxjsIndexFile, uxui.join('\n'));
-    this.uxjsFilePaths.push(uxjsIndexFile);
-
-    this.runWebpack(Config.APP_ENTRY);
   }
 
-  private runWebpack (appEntryPath: string) {
-    const webpackCompiler = webpack({
+  private runWebpack () {
+    const webpackOptions = {
       entry: {
         uxui: [
-          `${Config.ROOT_DIR}/.uxui/uxui.js`,
-          appEntryPath
+          `${Config.ROOT_DIR}/${Config.UXUI_DIR}/uxui.js`,
+          Config.APP_ENTRY
         ]
       },
       module: {
@@ -58,27 +62,47 @@ export class Builder {
       resolve: {
         extensions: ['.tsx', '.ts', '.js']
       },
+      plugins: [
+        new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
+        new HtmlWebpackPlugin({ title: '' })
+      ],
       output: {
         filename: '[name].bundle.js',
-        path: pathResolve(`${Config.ROOT_DIR}/.uxui`)
+        path: pathResolve(Config.ROOT_DIR, Config.UXUI_DIR)
+      },
+      watchOptions: {
+        ignored: /node_modules/
       }
-    });
+    };
 
     const checkWebpackErrors = (e: Error, stats: Stats) => {
       if (e || stats.hasErrors()) {
         throw stats.toString('minimal');
       }
-
-      if (!Config.WATCH) {
-        this.uxjsFilePaths.forEach(deletePath);
-      }
     };
 
     if (Config.WATCH) {
-      webpackCompiler.watch({}, checkWebpackErrors);
+      // @ts-ignore
+      const webpackCompiler = webpack(Object.assign(webpackOptions, {
+        mode: 'development',
+        devtool: 'inline-source-map'
+      }));
+
+      new WebpackDevServer(webpackCompiler, {
+        contentBase: [
+          Config.UX_FILES_DIR,
+          dirname(Config.APP_ENTRY),
+          pathResolve(Config.ROOT_DIR, Config.UXUI_DIR)
+        ],
+        compress: true,
+        open: true,
+        before: () => this.buildUXUI()
+      })
+        .listen(Config.DEV_SERVER_PORT);
     }
     else {
-      webpackCompiler.run(checkWebpackErrors);
+      this.buildUXUI();
+      webpack(webpackOptions, checkWebpackErrors);
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "squid-uxui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Squid UXUI to generate code for the UX and webpack with UI code",
   "main": "dist/index.js",
   "bin": {
@@ -31,12 +31,18 @@
   },
   "homepage": "https://github.com/rajeevnaikte/squid-uxui#readme",
   "dependencies": {
+    "@types/argparse": "^1.0.38",
+    "argparse": "^1.0.10",
     "cheerio": "^1.0.0-rc.3",
+    "clean-webpack-plugin": "^3.0.0",
+    "get-port": "^5.1.1",
+    "html-webpack-plugin": "^4.3.0",
     "js-beautify": "^1.11.0",
     "jsdom": "^16.2.2",
-    "squid-node-utils": "^1.0.1",
+    "squid-node-utils": "^1.0.2",
     "squid-ui": "^1.0.1",
-    "squid-utils": "^2.2.0"
+    "squid-utils": "^2.2.0",
+    "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.18",
@@ -45,6 +51,7 @@
     "@types/jsdom": "^12.0.4",
     "@types/lodash": "^4.14.151",
     "@types/webpack": "^4.41.13",
+    "@types/webpack-dev-server": "^3.10.1",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "eslint": "^6.8.0",

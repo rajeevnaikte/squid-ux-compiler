@@ -1,4 +1,4 @@
-import { ComponentDef } from 'squid-ui';
+import { ComponentDef, UI } from 'squid-ui';
 
 export const app: ComponentDef = {
   ux: 'panel.my-panel',
@@ -8,5 +8,6 @@ export const app: ComponentDef = {
       ux: 'form.field.textinput'
     }
   ]
-}
+};
 
+UI.render(app);
