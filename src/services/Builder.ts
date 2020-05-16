@@ -3,28 +3,37 @@
  */
 import { Config } from '../configurations/configuration';
 import { Compiler } from './Compiler';
-import { writeFile } from 'squid-node-utils';
-import { TextsBetween } from 'squid-utils';
+import { deletePath, writeFile } from 'squid-node-utils';
 import { resolve as pathResolve } from 'path';
 import { Stats } from 'webpack';
 import webpack = require('webpack');
 
+/**
+ * UXUI builder.
+ */
 export class Builder {
-  private readonly variablePattern = new TextsBetween('[', ']');
+  private readonly uxjsFilePaths: string[] = [];
 
+  /**
+   * Compiles UX files and app javascript/typescript code.
+   * Then builds UXUI webpacked code.
+   * UX files are searched in directory as set in env variable `UX_FILES_DIR`.
+   * App javascript/typescript code start point will be as set in env variable `APP_ENTRY`.
+   */
   buildUXUI () {
     const compiler = new Compiler();
-    const uxjsFilePaths: string[] = [];
 
-    Config.UXJS_NODE_MODULES.forEach(dir => uxjsFilePaths.push(...compiler.compileUX(dir)));
-    uxjsFilePaths.push(...compiler.compileUX(Config.UX_FILES_DIR));
+    Config.UXJS_NODE_MODULES.forEach(dir => this.uxjsFilePaths.push(...compiler.compileUX(dir)));
+    this.uxjsFilePaths.push(...compiler.compileUX(Config.UX_FILES_DIR));
 
     const uxui = [
       'import { UX } from \'squid-ui\';',
-      ...uxjsFilePaths.map(uxjsPath => `UX.add(require('${uxjsPath.replace(/'/g, '\\\'')}'));`)
+      ...this.uxjsFilePaths.map(uxjsPath => `UX.add(require('${uxjsPath.replace(/'/g, '\\\'')}'));`)
     ];
 
-    writeFile(`${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXUI_FILENAME}`, uxui.join('\n'));
+    const uxjsIndexFile = `${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXUI_FILENAME}`;
+    writeFile(uxjsIndexFile, uxui.join('\n'));
+    this.uxjsFilePaths.push(uxjsIndexFile);
 
     this.runWebpack(Config.APP_ENTRY);
   }
@@ -59,9 +68,13 @@ export class Builder {
       if (e || stats.hasErrors()) {
         throw stats.toString('minimal');
       }
+
+      if (!Config.WATCH) {
+        this.uxjsFilePaths.forEach(deletePath);
+      }
     };
 
-    if (JSON.parse(Config.WATCH as any)) {
+    if (Config.WATCH) {
       webpackCompiler.watch({}, checkWebpackErrors);
     }
     else {
