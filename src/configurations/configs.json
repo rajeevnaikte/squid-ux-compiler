@@ -9,5 +9,6 @@
   "UXUI_DIR": ".uxui",
   "UXUI_FILENAME": "uxui.js",
   "APP_ENTRY": "./examples/app.ts",
-  "DEV_SERVER_PORT": 3000
+  "DEV_SERVER_PORT": 3000,
+  "UI_MODULE_NAME": "squid-ui"
 }

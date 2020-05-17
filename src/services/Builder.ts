@@ -40,7 +40,7 @@ export class Builder {
     this.uxjsFilePaths.push(...this.compiler.compileUX(Config.UX_FILES_DIR));
 
     const uxui = [
-      'import { UX } from \'squid-ui\';',
+      `import { UX } from \'${Config.UI_MODULE_NAME}\';`,
       ...this.uxjsFilePaths.map(uxjsPath => `UX.add(require('${uxjsPath.replace(/'/g, '\\\'')}'));`)
     ];
 
