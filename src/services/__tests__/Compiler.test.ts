@@ -34,15 +34,19 @@ describe('Compiler', () => {
         style: `.form-group {
     margin: 10px;
   }
+
   #ux123 {
     padding: 10px;
   }
+
   #ux123 .some-class {
-    .test {
-      color: red;
-    }
+
+  .test {
+    color: red;
   }
-  .some-class.some-class2,.some-class.some-class3,
+
+  }
+  .some-class.some-class2, .some-class.some-class3,
   .some-class.some-class4 {
     border: 1px solid red;
   }`,
