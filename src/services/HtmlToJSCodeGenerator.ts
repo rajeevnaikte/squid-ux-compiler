@@ -47,14 +47,15 @@ export class HtmlToJSCodeGenerator {
     return { name, style, html, script };
   }
 
-  private stylePattern = new TextsBetween('{', '}');
+  private stylePattern = new TextsBetween.Builder('{', '}').withNestedAllowed().build();
 
   /**
    * Add the id variable as class to every style.
    * @param style
    */
   private addIdToStyle (style: string): string {
-    return this.stylePattern.split(style)
+    style = style.replace(/[\[\]]/g, match => `\\${match}`);
+    return this.stylePattern.parse(style).split()
       .map(part => {
         if (typeof part === 'string') {
           return part.split(',')
@@ -89,17 +90,12 @@ export class HtmlToJSCodeGenerator {
    */
   private getTextCreationCode (text: string) {
     if (this.variablePattern) {
-      text = this.variablePattern.split(text)
+      text = this.variablePattern.parse(text).split()
         .map(item => {
           if (typeof item === 'string') {
             return this.codifyText(item);
           }
-          else if (item.textBetween.startsWith('i18n')) {
-            return `i18n.translate(${this.codifyText(item.textBetween)})`;
-          }
-          else {
-            return `this.getAttribute(${this.codifyText(item.textBetween)})`;
-          }
+          return `this.getData(${this.codifyText(item.textBetween)})`;
         })
         .join(' + ');
     }
@@ -145,7 +141,7 @@ export class HtmlToJSCodeGenerator {
 
       const textCode = this.getTextCreationCode(text);
       codeLines.push(`const ${elVar} = document.createTextNode(${textCode});`);
-      for (const variable of this.variablePattern?.get(text) ?? []) {
+      for (const variable of this.variablePattern?.parse(text).get() ?? []) {
         if (variable !== 'id' && !variable.startsWith('i18n')) {
           codeLines.push(`this.onDataUpdate['${variable}'].push(() => ${elVar}.nodeValue = ${textCode});`);
         }
@@ -158,7 +154,7 @@ export class HtmlToJSCodeGenerator {
         const attrValue = el.attribs[attr];
         const textCode = this.getTextCreationCode(attrValue);
         codeLines.push(`${elVar}.setAttribute('${attr}', ${textCode});`);
-        for (const variable of this.variablePattern?.get(attrValue) ?? []) {
+        for (const variable of this.variablePattern?.parse(attrValue).get() ?? []) {
           if (variable !== 'id' && !variable.startsWith('i18n')) {
             codeLines.push(`this.onDataUpdate['${variable}'].push(() => ${elVar}.setAttribute('${attr}', ${textCode}));`);
           }

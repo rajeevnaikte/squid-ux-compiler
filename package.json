@@ -41,7 +41,7 @@
     "jsdom": "^16.2.2",
     "squid-node-utils": "^1.0.2",
     "squid-ui": "^1.0.1",
-    "squid-utils": "^2.2.0",
+    "squid-utils": "^3.0.2",
     "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {

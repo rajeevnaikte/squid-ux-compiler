@@ -15,7 +15,7 @@ import { readFile, walkDirTree, writeFile } from 'squid-node-utils';
  * Compiler for UX html code.
  */
 export class Compiler {
-  private readonly variablePattern = new TextsBetween('[', ']');
+  private readonly variablePattern = new TextsBetween.Builder('[', ']').withNestedAllowed().build();
 
   /**
    * Compile the .ux file(s).
@@ -49,7 +49,7 @@ export class Compiler {
     const template = this.getUXJSTemplate();
     const customElementName = getCustomElementName(uxCode);
 
-    const componentCode = this.variablePattern.replace(template, key => {
+    const componentCode = this.variablePattern.parse(template).replace(key => {
       const value = uxjsCode[key];
       if (Array.isArray(value)) {
         return value.join('\n');
@@ -128,7 +128,7 @@ export class Compiler {
       throw errors;
     }
 
-    const allVariables = uniq(this.variablePattern.get(html));
+    const allVariables = uniq(this.variablePattern.parse(html).get());
     return {
       namespace,
       name: basename(uxFilePath, '.ux'),
