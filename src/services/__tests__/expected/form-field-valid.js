@@ -1,7 +1,7 @@
 module.exports = {
   name: 'form-field-valid',
   style() {
-    const el0 = document.createTextNode('.form-group.' + this.getData('id') + '{     margin: 10px;   }#ux123.' + this.getData('id') + '{     padding: 10px;   }#ux123.' + this.getData('id') + ' .some-class.' + this.getData('id') + '{     color: red;   }.some-class.some-class2.' + this.getData('id') + ', .some-class.some-class3.' + this.getData('id') + ', .some-class.some-class4.' + this.getData('id') + '{     border: 1px solid red;   }');
+    const el0 = document.createTextNode('.form-group.' + this.getData('id') + '{     margin: 10px;   }#ux123.' + this.getData('id') + '{     padding: 10px;   }#ux123.' + this.getData('id') + ' .some-class.' + this.getData('id') + '{     .test {       color: red;     }   }.some-class.some-class2.' + this.getData('id') + ', .some-class.some-class3.' + this.getData('id') + ', .some-class.some-class4.' + this.getData('id') + '{     border: 1px solid red;   }');
     const el1 = document.createElement('style');
     el1.setAttribute('class', this.getData('id'));
     el1.appendChild(el0);

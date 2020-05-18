@@ -1,7 +1,7 @@
 import { Compiler } from '../Compiler';
 import { MultipleStyles, MultipleTemplate, NamespaceMissing } from '../errors';
 import { pathExists, readFile } from 'squid-node-utils';
-import { setConfigs } from '../../configurations/configuration';
+import { Config, setConfigs } from '../../configurations/configuration';
 
 describe('Compiler', () => {
   describe('parse', () => {
@@ -38,7 +38,9 @@ describe('Compiler', () => {
     padding: 10px;
   }
   #ux123 .some-class {
-    color: red;
+    .test {
+      color: red;
+    }
   }
   .some-class.some-class2,.some-class.some-class3,
   .some-class.some-class4 {
@@ -108,7 +110,7 @@ describe('Compiler', () => {
       // @ts-ignore
       compiler.compile(uxFile);
 
-      const outPath = `${__dirname}/.uxui/ux/form-field-valid.uxjs`;
+      const outPath = `${__dirname}/${Config.UXUI_DIR}/${Config.UXJS_FILE_EXTN}/form-field-valid.uxjs`;
       expect(pathExists(outPath)).toEqual(true);
 
       const actual = readFile(outPath);
