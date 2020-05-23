@@ -1,9 +1,9 @@
 import { BaseError } from 'squid-utils';
 
-export class NamespaceMissing extends BaseError {
+export class NameMissing extends BaseError {
   constructor (uxFilePath: string) {
-    super('MISSING_NAMESPACE', `${uxFilePath} doesn't contain namespace. Beginning should be `
-      + `'namespace: <some namespace for this component>;' (semi-colon is important)`);
+    super('MISSING_NAME', `${uxFilePath} doesn't contain name. Beginning should be `
+      + `'name: <some unique name for this component>;' (semi-colon is important)`);
   }
 }
 

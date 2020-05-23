@@ -35,7 +35,6 @@ export class HtmlToJSCodeGenerator {
     const script: string[] = [];
     if (this.ux.style) style.push(...this.htmlToJSCode(`<style>${this.addIdToStyle(this.ux.style)}</style>`));
 
-    html.push('this.onDataUpdate = {};');
     for (const variable of this.ux.variables ?? []) {
       if (variable === 'id') continue;
       html.push(`this.onDataUpdate['${variable}'] = [];`);

@@ -1,4 +1,4 @@
-namespace: form.field;
+name: form.field.no-style;
 
 <template>
   <div class="form-group">

@@ -8,7 +8,6 @@ module.exports = {
     return [el1];
   },
   html() {
-    this.onDataUpdate = {};
     this.onDataUpdate['exampleInputEmail1'] = [];
     const el3 = document.createTextNode(this.getData('i18n:Email address'));
     const el4 = document.createElement('label');

@@ -1,6 +1,6 @@
-import { basename, resolve as pathResolve } from 'path';
+import { resolve as pathResolve } from 'path';
 import { BaseError, TextsBetween } from 'squid-utils';
-import { MultipleScript, MultipleStyles, MultipleTemplate, NamespaceMissing, TemplateMissing } from './errors';
+import { MultipleScript, MultipleStyles, MultipleTemplate, NameMissing, TemplateMissing } from './errors';
 import * as cheerio from 'cheerio';
 import { UXCode } from '../types';
 import { Config } from '../configurations/configuration';
@@ -83,18 +83,18 @@ export class Compiler {
     const uxCode = readFile(uxFilePath);
     const errors: BaseError[] = [];
 
-    // extract namespace
-    let nameSpaceEndIdx = uxCode.indexOf(';');
-    if (!uxCode.substring(0, nameSpaceEndIdx).match(/^namespace: [^<]+$/g)) {
-      errors.push(new NamespaceMissing(uxFilePath));
-      nameSpaceEndIdx = -1;
+    // extract name
+    let nameEndIdx = uxCode.indexOf(';');
+    if (!uxCode.substring(0, nameEndIdx).match(/^name: [^<]+$/g)) {
+      errors.push(new NameMissing(uxFilePath));
+      nameEndIdx = -1;
     }
-    const namespace = uxCode.substring('namespace: '.length, nameSpaceEndIdx).trim().replace(/(\/|\\)+/g, '.');
-    if (namespace.length === 0) {
-      errors.push(new NamespaceMissing(uxFilePath));
+    const name = uxCode.substring('name: '.length, nameEndIdx).trim().replace(/(\/|\\)+/g, '.');
+    if (name.length === 0) {
+      errors.push(new NameMissing(uxFilePath));
     }
 
-    const $: CheerioStatic = cheerio.load(uxCode.substr(nameSpaceEndIdx + 1), {
+    const $: CheerioStatic = cheerio.load(uxCode.substr(nameEndIdx + 1), {
       decodeEntities: false
     });
 
@@ -130,8 +130,7 @@ export class Compiler {
 
     const allVariables = uniq(this.variablePattern.parse(html).get());
     return {
-      namespace,
-      name: basename(uxFilePath, '.ux'),
+      name,
       style,
       html,
       variables: allVariables.filter(variable => !variable.startsWith('i18n:')),

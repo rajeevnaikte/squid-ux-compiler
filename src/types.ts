@@ -4,12 +4,7 @@
 export type UXCode = {
   [key: string]: string | string[] | undefined;
   /**
-   * Namespace to uniquely identify the ux component.
-   * namespace + component name (file name) is used as the unique identifier.
-   */
-  namespace: string;
-  /**
-   * UX component name.
+   * UX component name. Must be unique.
    */
   name: string;
   /**

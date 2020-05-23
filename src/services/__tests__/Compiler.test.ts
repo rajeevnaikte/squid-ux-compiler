@@ -1,5 +1,5 @@
 import { Compiler } from '../Compiler';
-import { MultipleStyles, MultipleTemplate, NamespaceMissing } from '../errors';
+import { MultipleStyles, MultipleTemplate, NameMissing } from '../errors';
 import { pathExists, readFile } from 'squid-node-utils';
 import { Config, setConfigs } from '../../configurations/configuration';
 
@@ -14,7 +14,7 @@ describe('Compiler', () => {
         // @ts-ignore
         compiler.parse(uxFile, uxFile);
       }).toThrow([
-        new NamespaceMissing(uxFile),
+        new NameMissing(uxFile),
         new MultipleStyles(uxFile),
         new MultipleTemplate(uxFile)
       ].join());
@@ -29,8 +29,7 @@ describe('Compiler', () => {
         // @ts-ignore
         compiler.parse(uxFile, uxFile)
       ).toEqual({
-        namespace: 'form.field',
-        name: 'valid',
+        name: 'form.field.valid',
         style: `.form-group {
     margin: 10px;
   }
@@ -80,8 +79,7 @@ describe('Compiler', () => {
         // @ts-ignore
         compiler.parse(uxFile, uxFile)
       ).toEqual({
-        namespace: 'form.field',
-        name: 'no-style',
+        name: 'form.field.no-style',
         html: '<div class="form-group">\n' +
           '    <label for="[exampleInputEmail1]">[i18n:Email address]</label>\n' +
           '    <input type="email" class="form-control" id="[exampleInputEmail1]" aria-describedby="emailHelp" placeholder="[i18n:Enter email]">\n' +

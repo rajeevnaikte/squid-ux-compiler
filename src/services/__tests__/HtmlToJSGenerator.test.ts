@@ -5,7 +5,6 @@ import { UXCode } from '../../types';
 
 describe('HtmlToJSGenerator', () => {
   const testObj = (uxCode?: UXCode) => new HtmlToJSCodeGenerator(uxCode ?? {
-    namespace: '',
     name: '',
     html: '',
     variables: [],
@@ -15,7 +14,6 @@ describe('HtmlToJSGenerator', () => {
 
   describe('codifyText', () => {
     const testObj = new HtmlToJSCodeGenerator({
-      namespace: '',
       name: '',
       html: '',
       variables: [],
@@ -47,7 +45,6 @@ describe('HtmlToJSGenerator', () => {
 
   describe('getTextCreationCode', () => {
     const testObj = new HtmlToJSCodeGenerator({
-      namespace: '',
       name: '',
       html: '',
       variables: [],
@@ -168,8 +165,7 @@ describe('HtmlToJSGenerator', () => {
   describe('generate', () => {
     test('ux code', () => {
       const codeLines = testObj({
-        namespace: 'field',
-        name: 'input',
+        name: 'field.input',
         style: 'div[att=t] { margin: 10px; }',
         html: '<div><input type="radio" name="name">[val1]<input type="radio" name="name">Option2 [i18n:data]</div>',
         variables: ['val1'],
@@ -186,7 +182,6 @@ describe('HtmlToJSGenerator', () => {
           'return [el1];'
         ],
         html: [
-          'this.onDataUpdate = {};',
           'this.onDataUpdate[\'val1\'] = [];',
           'const el2 = document.createElement(\'input\');',
           'el2.setAttribute(\'type\', \'radio\');',
