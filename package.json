@@ -1,6 +1,6 @@
 {
   "name": "squid-uxui",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Cli tool to generate code for the UX and webpack with UI code",
   "main": "dist/index.js",
   "bin": {
@@ -40,8 +40,8 @@
     "js-beautify": "^1.11.0",
     "jsdom": "^16.2.2",
     "squid-node-utils": "^1.0.2",
-    "squid-ui": "^1.0.1",
-    "squid-utils": "^3.0.10",
+    "squid-ui": "^1.1.1",
+    "squid-utils": "^3.0.11",
     "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
@@ -57,7 +57,7 @@
     "eslint": "^6.8.0",
     "jest": "^25.5.4",
     "ts-jest": "^25.5.1",
-    "ts-loader": "^7.0.4",
+    "ts-loader": "^7.0.5",
     "ts-node": "^8.10.1",
     "typescript": "^3.9.3",
     "webpack": "^4.43.0",

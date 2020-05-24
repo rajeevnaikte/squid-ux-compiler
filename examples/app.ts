@@ -1,6 +1,6 @@
-import { ComponentDef, UI } from 'squid-ui';
+import { UI, ViewState } from 'squid-ui';
 
-export const app: ComponentDef = {
+export const app: ViewState = {
   ux: 'panel.my-panel',
   name: '',
   items: [
