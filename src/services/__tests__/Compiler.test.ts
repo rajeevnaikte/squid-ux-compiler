@@ -49,6 +49,7 @@ describe('Compiler', () => {
   .some-class.some-class4 {
     border: 1px solid red;
   }
+
   div > * {
     padding: 1px;
   }`,
