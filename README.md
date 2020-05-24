@@ -2,7 +2,7 @@
 Front-end framework with JSON style.
 Create small, reusable components with HTML CSS and use it to build complex components by just writing JSON.
 
-## How it works
+## How it works?
 - `npm install squid-uxui`
 - Create some components with HTML CSS (and save in a file with extension .ux)
 ```html
