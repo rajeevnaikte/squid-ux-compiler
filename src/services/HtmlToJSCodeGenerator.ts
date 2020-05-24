@@ -63,7 +63,10 @@ export class HtmlToJSCodeGenerator {
             .map(styleRef => styleRef.split(' ')
               .map(sr => sr.trim())
               .filter(sr => sr.length > 0)
-              .map(sr => `${sr}.[id]`)
+              .map(sr => {
+                if (['*', '>', '+'].includes(sr)) return sr;
+                return `${sr}.[id]`;
+              })
               .join(' '))
             .join(', ');
         }

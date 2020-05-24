@@ -48,6 +48,9 @@ describe('Compiler', () => {
   .some-class.some-class2, .some-class.some-class3,
   .some-class.some-class4 {
     border: 1px solid red;
+  }
+  div > * {
+    padding: 1px;
   }`,
         html: `<div class="form-group">
     <label for="[exampleInputEmail1]">[i18n:Email address]</label>
