@@ -2,6 +2,7 @@ import { Compiler } from '../Compiler';
 import { MultipleStyles, MultipleTemplate, NameMissing } from '../errors';
 import { pathExists, readFile } from 'squid-node-utils';
 import { Config, setConfigs } from '../../configurations/configuration';
+import { js as beautify } from 'js-beautify';
 
 describe('Compiler', () => {
   describe('parse', () => {
@@ -122,7 +123,7 @@ describe('Compiler', () => {
       expect(pathExists(outPath)).toEqual(true);
 
       const actual = readFile(outPath);
-      expect(actual).toEqual(readFile(`${__dirname}/expected/form-field-valid.js`));
+      expect(beautify(actual)).toEqual(beautify(readFile(`${__dirname}/expected/form-field-valid.js`)));
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const uxjs = require(outPath);
@@ -133,11 +134,11 @@ describe('Compiler', () => {
       const compiler = new Compiler();
       const uxFile = `${__dirname}/data/scoped-style.ux`;
 
-      expect(readFile(
+      expect(beautify(readFile(
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         compiler.compile(uxFile)
-      )).toEqual(readFile(`${__dirname}/expected/style-scoped.js`));
+      ))).toEqual(beautify(readFile(`${__dirname}/expected/style-scoped.js`)));
     });
   });
 });
