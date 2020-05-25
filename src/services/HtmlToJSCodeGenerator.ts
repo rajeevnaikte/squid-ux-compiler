@@ -33,7 +33,11 @@ export class HtmlToJSCodeGenerator {
     const style: string[] = [];
     const html: string[] = [];
     const script: string[] = [];
-    if (this.ux.style) style.push(...this.htmlToJSCode(`<style>${this.addIdToStyle(this.ux.style)}</style>`));
+    if (this.ux.style) {
+      const styleSheet = (this.ux.style.scoped ? this.addIdToStyle(this.ux.style.scoped, true) : '')
+        + (this.ux.style.unscoped ? this.addIdToStyle(this.ux.style.unscoped, false) : '');
+      style.push(...this.htmlToJSCode(`<style>${styleSheet}</style>`));
+    }
 
     for (const variable of this.ux.variables ?? []) {
       if (variable === 'id') continue;
@@ -51,30 +55,50 @@ export class HtmlToJSCodeGenerator {
   /**
    * Add the id variable as class to every style.
    * @param style
+   * @param scoped - If true, style will apply only to this component html tags.
+   *  If false, style can be extended to tree under this component.
    */
-  private addIdToStyle (style: string): string {
+  private addIdToStyle (style: string, scoped?: boolean): string {
     style = style.replace(/[\[\]]/g, match => `\\${match}`);
-    return this.stylePattern.parse(style).split()
-      .map(part => {
-        if (typeof part === 'string') {
-          return part.split(',')
-            .map(sr => sr.trim())
-            .filter(sr => sr.length > 0)
-            .map(styleRef => styleRef.split(' ')
+    if (scoped) {
+      return this.stylePattern.parse(style).split()
+        .map(part => {
+          if (typeof part === 'string') {
+            return part.split(',')
               .map(sr => sr.trim())
               .filter(sr => sr.length > 0)
-              .map(sr => {
-                if (['*', '>', '+'].includes(sr)) return sr;
-                return `${sr}.[id]`;
-              })
-              .join(' '))
-            .join(', ');
-        }
-        else {
-          return part.text;
-        }
-      })
-      .join('');
+              .map(styleRef => styleRef.split(' ')
+                .map(sr => sr.trim())
+                .filter(sr => sr.length > 0)
+                .map(sr => {
+                  if (['*', '>', '+'].includes(sr)) return sr;
+                  return `${sr}.[id]`;
+                })
+                .join(' '))
+              .join(', ');
+          }
+          else {
+            return part.text;
+          }
+        })
+        .join('');
+    }
+    else {
+      return this.stylePattern.parse(style).split()
+        .map(part => {
+          if (typeof part === 'string') {
+            return part.split(',')
+              .map(sr => sr.trim())
+              .filter(sr => sr.length > 0)
+              .map(sr => `.[id] ${sr}`)
+              .join(', ');
+          }
+          else {
+            return part.text;
+          }
+        })
+        .join('');
+    }
   }
 
   /**

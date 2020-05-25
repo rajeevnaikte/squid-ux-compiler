@@ -2,7 +2,7 @@
  * Sections in .ux file.
  */
 export type UXCode = {
-  [key: string]: string | string[] | undefined;
+  [key: string]: any;
   /**
    * UX component name. Must be unique.
    */
@@ -10,7 +10,10 @@ export type UXCode = {
   /**
    * CSS for the component (it will be scoped with shadow dom).
    */
-  style?: string;
+  style?: {
+    unscoped?: string;
+    scoped?: string;
+  };
   /**
    * Layout of the component.
    */

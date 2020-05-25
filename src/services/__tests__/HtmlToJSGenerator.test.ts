@@ -166,7 +166,9 @@ describe('HtmlToJSGenerator', () => {
     test('ux code', () => {
       const codeLines = testObj({
         name: 'field.input',
-        style: 'div[att=t] { margin: 10px; }',
+        style: {
+          scoped: 'div[att=t] { margin: 10px; }'
+        },
         html: '<div><input type="radio" name="name">[val1]<input type="radio" name="name">Option2 [i18n:data]</div>',
         variables: ['val1'],
         i18ns: []

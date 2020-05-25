@@ -9,7 +9,7 @@ export class NameMissing extends BaseError {
 
 export class MultipleStyles extends BaseError {
   constructor (uxFilePath: string) {
-    super('MULTI_STYLE', `${uxFilePath} has multiple style tags. Expected only one.`);
+    super('MULTI_STYLE', `${uxFilePath} has multiple style tags. Expected one style tag and/or another with scoped.`);
   }
 }
 

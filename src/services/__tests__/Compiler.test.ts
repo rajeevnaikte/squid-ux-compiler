@@ -30,7 +30,8 @@ describe('Compiler', () => {
         compiler.parse(uxFile, uxFile)
       ).toEqual({
         name: 'form.field.valid',
-        style: `.form-group {
+        style: {
+          scoped: `.form-group {
     margin: 10px;
   }
 
@@ -52,7 +53,8 @@ describe('Compiler', () => {
 
   div > * {
     padding: 1px;
-  }`,
+  }`
+        },
         html: `<div class="form-group">
     <label for="[exampleInputEmail1]">[i18n:Email address]</label>
     test
@@ -125,6 +127,17 @@ describe('Compiler', () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const uxjs = require(outPath);
       expect(uxjs.name).toEqual('form-field-valid');
+    });
+
+    test('scoped style', () => {
+      const compiler = new Compiler();
+      const uxFile = `${__dirname}/data/scoped-style.ux`;
+
+      expect(readFile(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        compiler.compile(uxFile)
+      )).toEqual(readFile(`${__dirname}/expected/style-scoped.js`));
     });
   });
 });

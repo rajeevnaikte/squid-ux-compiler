@@ -99,12 +99,37 @@ export class Compiler {
     });
 
     // extract style
+    let style: any;
     const styleEl = $('style');
-    if (styleEl.length > 1) {
-      errors.push(new MultipleStyles(uxFilePath));
+    if (styleEl.length > 0) {
+      if (styleEl.length > 2) {
+        errors.push(new MultipleStyles(uxFilePath));
+      }
+      const style1 = $(styleEl[0]).html()?.trim();
+      style = {};
+      if (styleEl[0].attribs.scoped === '') {
+        style.scoped = style1;
+      }
+      else {
+        style.unscoped = style1;
+      }
+      if (styleEl.length > 1) {
+        const style2 = $(styleEl[1]).html()?.trim();
+        if (styleEl[1].attribs.scoped === '') {
+          if (style.scoped) {
+            errors.push(new MultipleStyles(uxFilePath));
+          }
+          style.scoped = style2;
+        }
+        else {
+          if (style.unscoped) {
+            errors.push(new MultipleStyles(uxFilePath));
+          }
+          style.unscoped = style2;
+        }
+      }
+      styleEl.remove();
     }
-    const style = styleEl.html()?.trim();
-    styleEl.remove();
 
     // extract script
     const scriptEl = $('script');

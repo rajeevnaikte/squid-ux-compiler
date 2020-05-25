@@ -1,6 +1,6 @@
 name: form.field.valid;
 
-<style>
+<style scoped>
   .form-group {
     margin: 10px;
   }

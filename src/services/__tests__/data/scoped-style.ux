@@ -1,0 +1,16 @@
+name: style.scoped;
+
+<style>
+    .form-group {
+        margin: 10px;
+    }
+</style>
+<style scoped>
+    .form-group {
+        padding: 10px;
+    }
+</style>
+
+<template>
+    <div>[text]</div>
+</template>
