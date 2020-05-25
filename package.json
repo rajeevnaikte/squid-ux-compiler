@@ -1,6 +1,6 @@
 {
   "name": "squid-uxui",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Cli tool to generate code for the UX and webpack with UI code",
   "main": "dist/index.js",
   "bin": {
@@ -31,7 +31,6 @@
   },
   "homepage": "https://github.com/rajeevnaikte/squid-uxui#readme",
   "dependencies": {
-    "@types/argparse": "^1.0.38",
     "argparse": "^1.0.10",
     "cheerio": "^1.0.0-rc.3",
     "clean-webpack-plugin": "^3.0.0",
@@ -42,9 +41,12 @@
     "squid-node-utils": "^1.0.2",
     "squid-ui": "^1.1.1",
     "squid-utils": "^3.0.11",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
+    "@types/argparse": "^1.0.38",
     "@types/cheerio": "^0.22.18",
     "@types/jest": "^25.2.3",
     "@types/js-beautify": "^1.11.0",
@@ -59,8 +61,6 @@
     "ts-jest": "^25.5.1",
     "ts-loader": "^7.0.5",
     "ts-node": "^8.10.1",
-    "typescript": "^3.9.3",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "typescript": "^3.9.3"
   }
 }
