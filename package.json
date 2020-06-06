@@ -51,8 +51,8 @@
     "@types/jest": "^25.2.3",
     "@types/js-beautify": "^1.11.0",
     "@types/jsdom": "^12.0.4",
-    "@types/lodash": "^4.14.152",
-    "@types/webpack": "^4.41.13",
+    "@types/lodash": "^4.14.155",
+    "@types/webpack": "^4.41.17",
     "@types/webpack-dev-server": "^3.11.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
@@ -60,7 +60,7 @@
     "jest": "^25.5.4",
     "ts-jest": "^25.5.1",
     "ts-loader": "^7.0.5",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.9.3"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
   }
 }
