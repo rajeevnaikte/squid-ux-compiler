@@ -57,12 +57,12 @@ describe('Compiler', () => {
   }`
         },
         html: `<div class="form-group">
-    <label for="[exampleInputEmail1]">[i18n:Email address]</label>
-    test
-    <input type="email" class="form-control" id="[exampleInputEmail1]" aria-describedby="emailHelp" placeholder="[i18n:Enter email]">
-    test2<br>
-    <small id="emailHelp" class="form-text text-muted">[i18n:We'll never share your email with anyone else.]</small>
-  </div>`,
+  <label for="[exampleInputEmail1]">[i18n:Email address]</label>
+  test
+  <input type="email" class="form-control" id="[exampleInputEmail1]" aria-describedby="emailHelp" placeholder="[i18n:Enter email]">
+  test2<br>
+  <small id="emailHelp" class="form-text text-muted">[i18n:We'll never share your email with anyone else.]</small>
+</div>`,
         script: `this.onresize = () => {
     console.log('hello');
   };`,
@@ -88,10 +88,10 @@ describe('Compiler', () => {
       ).toEqual({
         name: 'form.field.no-style',
         html: '<div class="form-group">\n' +
-          '    <label for="[exampleInputEmail1]">[i18n:Email address]</label>\n' +
-          '    <input type="email" class="form-control" id="[exampleInputEmail1]" aria-describedby="emailHelp" placeholder="[i18n:Enter email]">\n' +
-          '    <small id="emailHelp" class="form-text text-muted">[i18n:We\'ll never share your email with anyone else.]</small>\n' +
-          '  </div>',
+          '  <label for="[exampleInputEmail1]">[i18n:Email address]</label>\n' +
+          '  <input type="email" class="form-control" id="[exampleInputEmail1]" aria-describedby="emailHelp" placeholder="[i18n:Enter email]">\n' +
+          '  <small id="emailHelp" class="form-text text-muted">[i18n:We\'ll never share your email with anyone else.]</small>\n' +
+          '</div>',
         script: undefined,
         style: undefined,
         variables: [

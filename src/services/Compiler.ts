@@ -140,11 +140,11 @@ export class Compiler {
     scriptEl.remove();
 
     // extract html
-    const templateEl = $('template');
-    if (templateEl.length > 1) {
+    const templateEl = $('body');
+    if (templateEl.children().length > 1) {
       errors.push(new MultipleTemplate(uxFilePath));
     }
-    else if (templateEl.length !== 1) {
+    else if (templateEl.children().length !== 1) {
       errors.push(new TemplateMissing(uxFilePath));
     }
     const html = templateEl.html()?.trim() ?? '';

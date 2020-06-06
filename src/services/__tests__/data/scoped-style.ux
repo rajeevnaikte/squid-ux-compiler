@@ -11,6 +11,4 @@ name: style.scoped;
     }
 </style>
 
-<template>
-    <div>[text]</div>
-</template>
+<div>[text]</div>
