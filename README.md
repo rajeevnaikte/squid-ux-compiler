@@ -9,37 +9,40 @@ Create small, reusable components with HTML CSS and use it to build complex comp
 // form.ux
 name: form.form;
 
-// Styles defined here will always be scoped.
+// Styles defined here will be scoped to all elements within this component, including items.
 <style>
+  items > * {
+    border: 1px solid dodgerblue;
+  }
+</style>
+
+// Styles defined scoped attribute will be scoped to all elements within this component, excluding items.
+<style scoped>
   .header {
     background-color: #0074D9;
   }
 </style>
 
-<template>
-  <form>
-    <div>
-      <div class="header">[title]</div>
-      <items />
-    </div>
-  </form>
-</template>
+<form>
+  <div>
+    <div class="header">[title]</div>
+    <items />
+  </div>
+</form>
 
 // text-input.ux
 name: form.text-input;
 
-<template>
-  <div>
-    [label]: <input type="text" name="[name]" value="[value]">
-  </div>
-</template>
+<div>
+  [label]: <input type="text" name="[name]" value="[value]">
+</div>
 
 // button.ux
 name: form.submit-button;
 
-<template>
+<span>
   <button type="submit"></button>
-</template>
+</span>
 ```
 - Define your app in JSON form and render
 ```js
