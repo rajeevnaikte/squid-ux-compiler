@@ -28,8 +28,8 @@ module.exports = {
     el8.setAttribute('class', this.getData('id'));
     const el10 = document.createTextNode(this.getData('i18n:We\'ll never share your email with anyone else.'));
     const el11 = document.createElement('small');
-    el11.setAttribute('id', 'emailHelp');
     el11.setAttribute('class', 'form-text text-muted ' + this.getData('id'));
+    el11.setAttribute('id', 'emailHelp');
     el11.appendChild(el10);
     const el13 = document.createElement('div');
     el13.setAttribute('class', 'form-group ' + this.getData('id'));

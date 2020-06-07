@@ -61,7 +61,7 @@ describe('Compiler', () => {
   test
   <input type="email" class="form-control" id="[exampleInputEmail1]" aria-describedby="emailHelp" placeholder="[i18n:Enter email]">
   test2<br>
-  <small id="emailHelp" class="form-text text-muted">[i18n:We'll never share your email with anyone else.]</small>
+  <small class="form-text text-muted" id="emailHelp">[i18n:We'll never share your email with anyone else.]</small>
 </div>`,
         script: `this.onresize = () => {
     console.log('hello');
@@ -89,8 +89,8 @@ describe('Compiler', () => {
         name: 'form.field.no-style',
         html: '<div class="form-group">\n' +
           '  <label for="[exampleInputEmail1]">[i18n:Email address]</label>\n' +
-          '  <input type="email" class="form-control" id="[exampleInputEmail1]" aria-describedby="emailHelp" placeholder="[i18n:Enter email]">\n' +
-          '  <small id="emailHelp" class="form-text text-muted">[i18n:We\'ll never share your email with anyone else.]</small>\n' +
+          '  <input aria-describedby="emailHelp" class="form-control" id="[exampleInputEmail1]" placeholder="[i18n:Enter email]" type="email">\n' +
+          '  <small class="form-text text-muted" id="emailHelp">[i18n:We\'ll never share your email with anyone else.]</small>\n' +
           '</div>',
         script: undefined,
         style: undefined,
