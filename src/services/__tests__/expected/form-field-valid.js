@@ -17,12 +17,12 @@ module.exports = {
     el4.appendChild(el3);
     const el5 = document.createTextNode('test');
     const el6 = document.createElement('input');
-    el6.setAttribute('type', 'email');
+    el6.setAttribute('aria-describedby', 'emailHelp');
     el6.setAttribute('class', 'form-control ' + this.getData('id'));
     el6.setAttribute('id', this.getData('exampleInputEmail1'));
     this.onDataUpdate['exampleInputEmail1'].push(() => el6.setAttribute('id', this.getData('exampleInputEmail1')));
-    el6.setAttribute('aria-describedby', 'emailHelp');
     el6.setAttribute('placeholder', this.getData('i18n:Enter email'));
+    el6.setAttribute('type', 'email');
     const el7 = document.createTextNode('test2');
     const el8 = document.createElement('br');
     el8.setAttribute('class', this.getData('id'));

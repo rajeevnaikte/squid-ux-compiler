@@ -59,7 +59,7 @@ describe('Compiler', () => {
         html: `<div class="form-group">
   <label for="[exampleInputEmail1]">[i18n:Email address]</label>
   test
-  <input type="email" class="form-control" id="[exampleInputEmail1]" aria-describedby="emailHelp" placeholder="[i18n:Enter email]">
+  <input aria-describedby="emailHelp" class="form-control" id="[exampleInputEmail1]" placeholder="[i18n:Enter email]" type="email">
   test2<br>
   <small class="form-text text-muted" id="emailHelp">[i18n:We'll never share your email with anyone else.]</small>
 </div>`,
