@@ -39,12 +39,12 @@
     "js-beautify": "^1.11.0",
     "jsdom": "^16.2.2",
     "squid-node-utils": "^1.0.2",
-    "squid-ui": "^1.1.1",
+    "squid-ui": "^1.2.1",
     "squid-utils": "^3.0.11",
-    "webpack-dev-server": "^3.11.0",
-    "webpack": "^4.43.0",
     "ts-loader": "^7.0.5",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
     "@types/argparse": "^1.0.38",
