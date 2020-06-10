@@ -4,7 +4,7 @@
 import { watch as fsWatch } from 'fs';
 import { Config } from '../configurations/configuration';
 import { Compiler } from './Compiler';
-import { writeFile } from 'squid-node-utils';
+import { pathExists, writeFile } from 'squid-node-utils';
 import { dirname, resolve as pathResolve } from 'path';
 import { Stats } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -87,6 +87,16 @@ export class Builder {
         ignored: /node_modules/
       }
     };
+
+    const webpackConfigJSFilePath = './webpack.config.js';
+    if (pathExists(webpackConfigJSFilePath)) {
+      const userWebpackConfig = import(webpackConfigJSFilePath) as any;
+      delete userWebpackConfig.entry;
+      userWebpackConfig.resolve?.extensions?.push('.uxjs', '.js');
+      delete userWebpackConfig.output;
+
+      Object.assign(webpackOptions, userWebpackConfig);
+    }
 
     // on webpack error log the message
     const checkWebpackErrors = (e: Error, stats: Stats) => {
