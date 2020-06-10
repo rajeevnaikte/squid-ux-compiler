@@ -90,7 +90,7 @@ export class Builder {
 
     const webpackConfigJSFilePath = './webpack.config.js';
     if (pathExists(webpackConfigJSFilePath)) {
-      const userWebpackConfig = import(webpackConfigJSFilePath) as any;
+      const userWebpackConfig = import(pathResolve(webpackConfigJSFilePath)) as any;
       delete userWebpackConfig.entry;
       userWebpackConfig.resolve?.extensions?.push('.uxjs', '.js');
       delete userWebpackConfig.output;
