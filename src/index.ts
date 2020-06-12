@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-export * from 'squid-ui';
-
 import { Builder } from './services/Builder';
 import { ArgumentParser } from 'argparse';
 import { Config, setConfigs } from './configurations/configuration';
