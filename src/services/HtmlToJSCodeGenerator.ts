@@ -136,11 +136,11 @@ export class HtmlToJSCodeGenerator {
     const codeLines: string[] = [];
     const elVars: (string | undefined)[] = [];
     const $: CheerioStatic = cheerio.load(html, {
-      decodeEntities: false
+      decodeEntities: false,
+      xmlMode: true
     });
 
-    $('head > *').each((idx, el) => elVars.push(this.traverseHtmlAndGetJSCode(el, codeLines)));
-    $('body > *').each((idx, el) => elVars.push(this.traverseHtmlAndGetJSCode(el, codeLines)));
+    $(':root').each((idx, el) => elVars.push(this.traverseHtmlAndGetJSCode(el, codeLines)));
 
     codeLines.push(`return [${elVars.join()}];`);
 

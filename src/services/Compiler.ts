@@ -94,8 +94,9 @@ export class Compiler {
       errors.push(new NameMissing(uxFilePath));
     }
 
-    const $: CheerioStatic = cheerio.load(uxCode.substr(nameEndIdx + 1), {
-      decodeEntities: false
+    const $: CheerioStatic = cheerio.load(`<body>${uxCode.substr(nameEndIdx + 1)}</body>`, {
+      decodeEntities: false,
+      xmlMode: true
     });
 
     // extract style
@@ -141,10 +142,16 @@ export class Compiler {
 
     // extract html
     const templateEl = $('body');
-    if (templateEl.children().length > 1) {
+    templateEl[0].children.map(el => el)
+      .forEach((el) => {
+        if (el.type !== 'tag') {
+          $(el).remove();
+        }
+      });
+    if (templateEl[0].children.length > 1) {
       errors.push(new MultipleTemplate(uxFilePath));
     }
-    else if (templateEl.children().length !== 1) {
+    else if (templateEl[0].children.length !== 1) {
       errors.push(new TemplateMissing(uxFilePath));
     }
     const html = templateEl.html()?.trim() ?? '';

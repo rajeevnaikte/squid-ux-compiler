@@ -59,8 +59,8 @@ describe('Compiler', () => {
         html: `<div class="form-group">
   <label for="[exampleInputEmail1]">[i18n:Email address]</label>
   test
-  <input aria-describedby="emailHelp" class="form-control" id="[exampleInputEmail1]" placeholder="[i18n:Enter email]" type="email">
-  test2<br>
+  <input aria-describedby="emailHelp" class="form-control" id="[exampleInputEmail1]" placeholder="[i18n:Enter email]" type="email"/>
+  test2<br/>
   <small class="form-text text-muted" id="emailHelp">[i18n:We'll never share your email with anyone else.]</small>
 </div>`,
         script: `this.onresize = () => {
@@ -89,7 +89,7 @@ describe('Compiler', () => {
         name: 'form.field.no-style',
         html: '<div class="form-group">\n' +
           '  <label for="[exampleInputEmail1]">[i18n:Email address]</label>\n' +
-          '  <input aria-describedby="emailHelp" class="form-control" id="[exampleInputEmail1]" placeholder="[i18n:Enter email]" type="email">\n' +
+          '  <input aria-describedby="emailHelp" class="form-control" id="[exampleInputEmail1]" placeholder="[i18n:Enter email]" type="email"/>\n' +
           '  <small class="form-text text-muted" id="emailHelp">[i18n:We\'ll never share your email with anyone else.]</small>\n' +
           '</div>',
         script: undefined,
@@ -139,6 +139,24 @@ describe('Compiler', () => {
         // @ts-ignore
         compiler.compile(uxFile)
       ))).toEqual(beautify(readFile(`${__dirname}/expected/style-scoped.js`)));
+    });
+
+    test('table', () => {
+      const compiler = new Compiler();
+      const uxFile = `${__dirname}/data/table.ux`;
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      compiler.compile(uxFile);
+
+      const outPath = `${__dirname}/${Config.UXUI_DIR}/${Config.UXJS_FILE_EXTN}/table.uxjs`;
+      expect(pathExists(outPath)).toEqual(true);
+
+      expect(beautify(readFile(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        compiler.compile(uxFile)
+      ))).toEqual(beautify(readFile(`${__dirname}/expected/table.js`)));
     });
   });
 });
