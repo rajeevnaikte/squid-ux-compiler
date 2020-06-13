@@ -11,7 +11,7 @@ name: form.form;
 
 // Styles defined here will be scoped to all elements within this component, including items.
 <style>
-  items > * {
+  div > * {
     border: 1px solid dodgerblue;
   }
 </style>
