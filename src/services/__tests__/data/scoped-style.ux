@@ -9,6 +9,18 @@ name: style.scoped;
     .form-group {
         padding: 10px;
     }
+
+    p:hover {
+        margin: 1rem;
+    }
+
+    [contenteditable]:empty:before {
+        content: 'test';
+    }
+
+    [contenteditable][placeholder]:empty:before {
+        content: attr(placeholder);
+    }
 </style>
 
 <div>[text]</div>

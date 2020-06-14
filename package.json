@@ -15,7 +15,8 @@
     "lint:fix": "eslint 'src/**/*.{ts,js}' --fix",
     "test": "jest",
     "build": "tsc",
-    "prepublish": "tsc"
+    "prepublish": "tsc",
+    "go-live": "npm update && git add . && git commit && npm version patch && git push && npm publish"
   },
   "repository": {
     "type": "git",

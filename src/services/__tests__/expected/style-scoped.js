@@ -1,7 +1,7 @@
 module.exports = {
   name: 'style-scoped',
   style () {
-    const el0 = document.createTextNode('.form-group.' + this.getData('id') + '{         padding: 10px;     }.' + this.getData('id') + ' .form-group{         margin: 10px;     }');
+    const el0 = document.createTextNode('.form-group.' + this.getData('id') + '{         padding: 10px;     }p.' + this.getData('id') + ':hover{         margin: 1rem;     }[contenteditable].' + this.getData('id') + ':empty:before{         content: \'test\';     }[contenteditable][placeholder].' + this.getData('id') + ':empty:before{         content: attr(placeholder);     }.' + this.getData('id') + ' .form-group{         margin: 10px;     }');
     const el1 = document.createElement('style');
     el1.setAttribute('class', this.getData('id'));
     el1.appendChild(el0);

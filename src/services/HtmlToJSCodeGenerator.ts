@@ -72,7 +72,9 @@ export class HtmlToJSCodeGenerator {
                 .filter(sr => sr.length > 0)
                 .map(sr => {
                   if (['*', '>', '+'].includes(sr)) return sr;
-                  return `${sr}.[id]`;
+                  // To handle css e.g. p:hover, div:empty:hover
+                  const srParts = sr.split(':');
+                  return `${srParts[0]}.[id]${srParts.length > 1 ? `:${srParts.slice(1).join(':')}` : ''}`;
                 })
                 .join(' '))
               .join(', ');
