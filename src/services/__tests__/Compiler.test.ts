@@ -3,6 +3,8 @@ import { MultipleStyles, MultipleTemplate, NameMissing } from '../errors';
 import { pathExists, readFile } from 'squid-node-utils';
 import { Config, setConfigs } from '../../configurations/configuration';
 import { js as beautify } from 'js-beautify';
+import { UXExists } from 'squid-ui/dist/exceptions/errors';
+import { BaseError } from 'squid-utils';
 
 describe('Compiler', () => {
   describe('parse', () => {
@@ -147,16 +149,34 @@ describe('Compiler', () => {
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
-      compiler.compile(uxFile);
+      const tableUxjs = compiler.compile(uxFile);
 
       const outPath = `${__dirname}/${Config.UXUI_DIR}/${Config.UXJS_FILE_EXTN}/table.uxjs`;
       expect(pathExists(outPath)).toEqual(true);
 
-      expect(beautify(readFile(
+      expect(beautify(readFile(tableUxjs))).toEqual(beautify(readFile(`${__dirname}/expected/table.js`)));
+    });
+
+    test('UX already exists error', () => {
+      const compiler = new Compiler();
+      const uxFile = `${__dirname}/data/table.ux`;
+
+      expect(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
-        compiler.compile(uxFile)
-      ))).toEqual(beautify(readFile(`${__dirname}/expected/table.js`)));
+        compiler.compile(uxFile);
+      }).toThrow(new UXExists('table'));
+    });
+
+    test('Multiple items ref error', () => {
+      const compiler = new Compiler();
+      const uxFile = `${__dirname}/data/invalid-table.ux`;
+
+      expect(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        compiler.compile(uxFile);
+      }).toThrow(new BaseError('MULTIPLE_ITEMS_TAGS', 'Multiple items tag for ref columns found in UX invalid-table.'));
     });
   });
 });

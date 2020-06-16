@@ -10,6 +10,7 @@ import { HtmlToJSCodeGenerator } from './HtmlToJSCodeGenerator';
 import { js as beautify } from 'js-beautify';
 import { getCustomElementName } from '../common/utils';
 import { readFile, walkDirTree, writeFile } from 'squid-node-utils';
+import { UI, UX } from 'squid-ui';
 
 /**
  * Compiler for UX html code.
@@ -30,7 +31,12 @@ export class Compiler {
         try {
           return this.compile(uxFilePath);
         } catch (e) {
-          console.error(e.map((err: BaseError) => err.message));
+          if (Array.isArray(e)) {
+            console.error(e.map((err: BaseError) => err.message));
+          }
+          else {
+            console.error(e.message);
+          }
         }
       })
       .filter(uxjs => uxjs) as string[];
@@ -59,19 +65,12 @@ export class Compiler {
       }
     });
 
-    // Validate the ux component code.
-    new JSDOM(`<body>
-        <script>
-          const i18n = { translate: () => '' };
-          window.ux = {};
-          const module = {};
-        </script>
-        <script>${componentCode}</script>
-        <${customElementName}></${customElementName}>
-      </body>`, { runScripts: 'dangerously' });
-
     const uxComponentClassFilePath = `${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXJS_FILE_EXTN}/${customElementName}.${Config.UXJS_FILE_EXTN}`;
     writeFile(uxComponentClassFilePath, beautify(componentCode, { indent_size: 2 })); // eslint-disable-line @typescript-eslint/camelcase
+
+    // Validate the ux component code.
+    UX.add(require(uxComponentClassFilePath));
+    UI.render({ ux: uxjsCode.name });
 
     return pathResolve(uxComponentClassFilePath);
   }

@@ -1,0 +1,21 @@
+name: invalid-table;
+
+<table>
+  <thead>
+    <th items-for="columns">
+      <p>
+        <item />
+      </p>
+    </th>
+  </thead>
+  <tbody>
+    <tr items-for="rows">
+    </tr>
+    <tr>
+      <items />
+    </tr>
+    <tr>
+      <items items-for="columns" />
+    </tr>
+  </tbody>
+</table>
