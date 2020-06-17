@@ -34,6 +34,12 @@ export class Builder {
    * Compile UX files into JS code.
    */
   private buildUXUI () {
+    for (const cachedModule in require.cache) {
+      if (cachedModule.includes(Config.UI_MODULE_NAME)) {
+        delete require.cache[cachedModule];
+      }
+    }
+
     this.uxjsFilePaths.splice(0, this.uxjsFilePaths.length);
 
     Config.UXJS_NODE_MODULES.forEach(dir => this.uxjsFilePaths.push(...this.compiler.compileUX(dir)));

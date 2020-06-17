@@ -10,7 +10,6 @@ import { HtmlToJSCodeGenerator } from './HtmlToJSCodeGenerator';
 import { js as beautify } from 'js-beautify';
 import { getCustomElementName } from '../common/utils';
 import { readFile, walkDirTree, writeFile } from 'squid-node-utils';
-import { UI, UX } from 'squid-ui';
 
 // @ts-ignore
 global.document = new JSDOM('<html></html>').window.document;
@@ -74,8 +73,9 @@ export class Compiler {
     writeFile(uxComponentClassFilePath, beautify(componentCode, { indent_size: 2 })); // eslint-disable-line @typescript-eslint/camelcase
 
     // Validate the ux component code.
-    UX.add(require(uxComponentClassFilePath));
-    UI.render({ ux: uxjsCode.name });
+    const uiModule = require('squid-ui');
+    uiModule.UX.add(require(uxComponentClassFilePath));
+    uiModule.UI.render({ ux: uxjsCode.name });
 
     return uxComponentClassFilePath;
   }
