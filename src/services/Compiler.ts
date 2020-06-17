@@ -12,6 +12,9 @@ import { getCustomElementName } from '../common/utils';
 import { readFile, walkDirTree, writeFile } from 'squid-node-utils';
 import { UI, UX } from 'squid-ui';
 
+// @ts-ignore
+global.document = new JSDOM('<html></html>').window.document;
+
 /**
  * Compiler for UX html code.
  */
