@@ -65,14 +65,16 @@ export class Compiler {
       }
     });
 
-    const uxComponentClassFilePath = `${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXJS_FILE_EXTN}/${customElementName}.${Config.UXJS_FILE_EXTN}`;
+    const uxComponentClassFilePath = pathResolve(
+      `${Config.ROOT_DIR}/${Config.UXUI_DIR}/${Config.UXJS_FILE_EXTN}/${customElementName}.${Config.UXJS_FILE_EXTN}`
+    );
     writeFile(uxComponentClassFilePath, beautify(componentCode, { indent_size: 2 })); // eslint-disable-line @typescript-eslint/camelcase
 
     // Validate the ux component code.
     UX.add(require(uxComponentClassFilePath));
     UI.render({ ux: uxjsCode.name });
 
-    return pathResolve(uxComponentClassFilePath);
+    return uxComponentClassFilePath;
   }
 
   /**
