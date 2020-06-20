@@ -65,7 +65,7 @@ describe('HtmlToJSGenerator', () => {
       expect(
         // @ts-ignore
         testObj.getTextCreationCode(text)
-      ).toEqual('');
+      ).toEqual('\'\'');
     });
 
     test('text with quote', () => {

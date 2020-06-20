@@ -117,6 +117,9 @@ export class HtmlToJSCodeGenerator {
    * @param text
    */
   private getTextCreationCode (text: string) {
+    if (text === '') {
+      return '\'\'';
+    }
     if (this.variablePattern) {
       text = this.variablePattern.parse(text).split()
         .map(item => {
