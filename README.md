@@ -87,3 +87,23 @@ const genesisViewModel = UI.render(app);
 `uxui serve -u /path/to/folder/of/.ux/files -e /path/to/app.js`
 - Build the production ready app with command
 `uxui build -u /path/to/folder/of/.ux/files -e /path/to/app.js`
+
+## Command usage and options
+```
+usage: uxui [-h] -u UX_DIR -e APP_ENTRY [-p DEV_PORT] {serve,build}
+
+Build UXUI framework app
+
+Positional arguments:
+  {serve,build}         serve - Starts dev server with hot reload. build - 
+                        Generates production ready webpacked files.
+
+Optional arguments:
+  -h, --help            Show this help message and exit.
+  -u UX_DIR, --ux-dir UX_DIR
+                        Directory containing .ux files.
+  -e APP_ENTRY, --app-entry APP_ENTRY
+                        App entry file (.js .ts).
+  -p DEV_PORT, --dev-port DEV_PORT
+                        Dev server port.
+```
