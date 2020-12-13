@@ -98,7 +98,7 @@ export class Compiler {
       errors.push(new NameMissing(uxFilePath));
     }
 
-    const $: CheerioStatic = cheerio.load(`<body>${uxCode.substr(nameEndIdx + 1)}</body>`, {
+    const $ = cheerio.load(`<body>${uxCode.substr(nameEndIdx + 1)}</body>`, {
       decodeEntities: false,
       xmlMode: true
     });
@@ -112,7 +112,7 @@ export class Compiler {
       }
       const style1 = $(styleEl[0]).html()?.trim();
       style = {};
-      if (styleEl[0].attribs.scoped === '') {
+      if (styleEl.get(0).attribs.scoped === '') {
         style.scoped = style1;
       }
       else {
@@ -120,7 +120,7 @@ export class Compiler {
       }
       if (styleEl.length > 1) {
         const style2 = $(styleEl[1]).html()?.trim();
-        if (styleEl[1].attribs.scoped === '') {
+        if (styleEl.get(1).attribs.scoped === '') {
           if (style.scoped) {
             errors.push(new MultipleStyles(uxFilePath));
           }
@@ -146,16 +146,16 @@ export class Compiler {
 
     // extract html
     const templateEl = $('body');
-    templateEl[0].children.map(el => el)
-      .forEach((el) => {
+    templateEl.get(0).children.map((el: any) => el)
+      .forEach((el: { type: string }) => {
         if (el.type !== 'tag') {
           $(el).remove();
         }
       });
-    if (templateEl[0].children.length > 1) {
+    if (templateEl.get(0).children.length > 1) {
       errors.push(new MultipleTemplate(uxFilePath));
     }
-    else if (templateEl[0].children.length !== 1) {
+    else if (templateEl.get(0).children.length !== 1) {
       errors.push(new TemplateMissing(uxFilePath));
     }
     const html = templateEl.html()?.trim() ?? '';

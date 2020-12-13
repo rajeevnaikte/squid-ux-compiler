@@ -142,12 +142,12 @@ export class HtmlToJSCodeGenerator {
   private htmlToJSCode (html: string): string[] {
     const codeLines: string[] = [];
     const elVars: (string | undefined)[] = [];
-    const $: CheerioStatic = cheerio.load(html, {
+    const $: any = cheerio.load(html, {
       decodeEntities: false,
       xmlMode: true
     });
 
-    $(':root').each((idx, el) => elVars.push(this.traverseHtmlAndGetJSCode(el, codeLines)));
+    $(':root').each((idx: any, el: any) => elVars.push(this.traverseHtmlAndGetJSCode(el, codeLines)));
 
     codeLines.push(`return [${elVars.join()}];`);
 
@@ -159,9 +159,9 @@ export class HtmlToJSCodeGenerator {
    * @param el
    * @param codeLines
    */
-  private traverseHtmlAndGetJSCode (el: CheerioElement, codeLines: string[] = []): string | undefined {
+  private traverseHtmlAndGetJSCode (el: any, codeLines: string[] = []): string | undefined {
     const childVars: string[] = [];
-    el.children?.forEach(childEl => {
+    el.children?.forEach((childEl: any) => {
       const childVar = this.traverseHtmlAndGetJSCode(childEl, codeLines);
       if (childVar) childVars.push(childVar);
     });
