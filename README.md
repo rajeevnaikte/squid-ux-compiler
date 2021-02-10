@@ -81,7 +81,7 @@ const app = {
   }
 }
 
-const genesisViewModel = UI.render(app);
+const genesisViewModel = UI.render(app, rootEl);
 ```
 - Start the app with command
 `uxui serve -u /path/to/folder/of/.ux/files -e /path/to/app.js`
