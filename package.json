@@ -33,19 +33,19 @@
   "homepage": "https://github.com/rajeevnaikte/squid-uxui#readme",
   "dependencies": {
     "argparse": "^1.0.10",
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.5",
     "clean-webpack-plugin": "^3.0.0",
     "get-port": "^5.1.1",
-    "html-webpack-plugin": "^4.5.0",
-    "js-beautify": "^1.13.0",
+    "html-webpack-plugin": "^4.5.1",
+    "js-beautify": "^1.13.5",
     "jsdom": "^16.4.0",
     "squid-node-utils": "^1.0.2",
-    "squid-ui": "^1.3.7",
+    "squid-ui": "^1.4.1",
     "squid-utils": "^3.0.11",
     "ts-loader": "^7.0.5",
-    "webpack": "^4.44.2",
+    "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.2"
   },
   "devDependencies": {
     "@types/argparse": "^1.0.38",
@@ -53,8 +53,8 @@
     "@types/jest": "^25.2.3",
     "@types/js-beautify": "^1.13.1",
     "@types/jsdom": "^12.0.4",
-    "@types/lodash": "^4.14.165",
-    "@types/webpack": "^4.41.25",
+    "@types/lodash": "^4.14.168",
+    "@types/webpack": "^4.41.26",
     "@types/webpack-dev-server": "^3.11.1",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
@@ -62,6 +62,6 @@
     "jest": "^25.5.4",
     "ts-jest": "^25.5.1",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.9"
   }
 }
